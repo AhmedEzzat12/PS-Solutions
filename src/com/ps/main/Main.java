@@ -1,42 +1,25 @@
 package com.ps.main;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int numOfCards = Integer.parseInt(input.nextLine());
-        int firstSum = 0, secondSum = 0;
+        int numOfStones = Integer.parseInt(input.nextLine());
+        int numOfStonesRemoved = 0;
 
-        String cards = input.nextLine();
-
-        if (numOfCards == 1) {
-            System.out.println(cards + " " + secondSum);
-            return;
-        }
-        Integer[] numbers = Arrays.stream(cards.split(" ")).mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
-        LinkedList<Integer> integerLinkedList = new LinkedList<>(Arrays.asList(numbers));
-
-        int integerLinkedListSize = integerLinkedList.size();
-        for (int i = 0; i < integerLinkedListSize; ++i) {
-            int biggerNum;
-            if (integerLinkedList.getLast() > integerLinkedList.getFirst()) {
-                biggerNum = integerLinkedList.getLast();
-                integerLinkedList.removeLast();
-            } else {
-                biggerNum = integerLinkedList.getFirst();
-                integerLinkedList.removeFirst();
+        String stones = input.nextLine();
+        char c = stones.charAt(0);
+        for (int i = 1; i < numOfStones; ++i) {
+            if (stones.charAt(i) == c) {
+                ++numOfStonesRemoved;
             }
-            if (i % 2 == 0) {
-                firstSum += biggerNum;
-            } else secondSum += biggerNum;
+            c = stones.charAt(i);
         }
         input.close();
-        System.out.println(firstSum + " " + secondSum);
 
+        System.out.println(numOfStonesRemoved);
     }
 
 }
