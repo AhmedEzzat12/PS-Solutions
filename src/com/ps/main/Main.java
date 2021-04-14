@@ -1,17 +1,42 @@
 package com.ps.main;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String userName = input.nextLine();
-        Set<Character> charSet = new HashSet<>();
-        for (int i = 0; i < userName.length(); ++i) charSet.add(userName.charAt(i));
-        System.out.println(charSet.size() % 2 == 0 ? "CHAT WITH HER!" : "IGNORE HIM!");
+        int numOfCards = Integer.parseInt(input.nextLine());
+        int firstSum = 0, secondSum = 0;
+
+        String cards = input.nextLine();
+
+        if (numOfCards == 1) {
+            System.out.println(cards + " " + secondSum);
+            return;
+        }
+        Integer[] numbers = Arrays.stream(cards.split(" ")).mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
+        LinkedList<Integer> integerLinkedList = new LinkedList<>(Arrays.asList(numbers));
+
+        int integerLinkedListSize = integerLinkedList.size();
+        for (int i = 0; i < integerLinkedListSize; ++i) {
+            int biggerNum;
+            if (integerLinkedList.getLast() > integerLinkedList.getFirst()) {
+                biggerNum = integerLinkedList.getLast();
+                integerLinkedList.removeLast();
+            } else {
+                biggerNum = integerLinkedList.getFirst();
+                integerLinkedList.removeFirst();
+            }
+            if (i % 2 == 0) {
+                firstSum += biggerNum;
+            } else secondSum += biggerNum;
+        }
         input.close();
+        System.out.println(firstSum + " " + secondSum);
+
     }
+
 }
