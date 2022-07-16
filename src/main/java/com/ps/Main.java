@@ -10,22 +10,33 @@ public class Main {
     private final static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(twoSum(new int[]{2, 7, 11, 15}, 9)));
+        merge(new int[]{0}, 0
+                , new int[]{1}, 1);
     }
 
-    public static int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> intMap = new HashMap<>();
-
-        for (int i = 0; i < nums.length; i++) {
-            int complement = target - nums[i];
-            if (intMap.containsKey(complement)) {
-                return new int[]{intMap.get(complement), i};
-            }
-            intMap.put(nums[i], i);
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int totalLength = m + n;
+        int x = 0;
+        for (int i = m; i < totalLength; i++) {
+            nums1[i] = nums2[x];
+            ++x;
         }
+        bubbleSort(nums1, totalLength);
+        System.out.println(Arrays.toString(nums1));
+    }
 
+    public static void bubbleSort(int[] sort_arr, int len) {
 
-        return null;
+        for (int i = 0; i < len - 1; ++i) {
+            for (int j = 0; j < len - i - 1; ++j) {
+                if (sort_arr[j + 1] < sort_arr[j]) {
+                    int swap = sort_arr[j];
+                    sort_arr[j] = sort_arr[j + 1];
+                    sort_arr[j + 1] = swap;
+
+                }
+            }
+        }
     }
 
 }
