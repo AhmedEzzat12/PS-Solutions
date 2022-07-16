@@ -1,29 +1,31 @@
 package com.ps;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class Main {
     private final static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
-
+        System.out.println(Arrays.toString(twoSum(new int[]{2, 7, 11, 15}, 9)));
     }
 
-    public static List<Integer> matchingStrings(List<String> strings, List<String> queries) {
-        // Write your code here
-        List<Integer> res = new ArrayList<>();
-        Map<String, Long> collect = strings
-                .stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        for (String query : queries) {
-            Long aLong = collect.getOrDefault(query, 0L);
-            res.add(Math.toIntExact(aLong));
+    public static int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> intMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (intMap.containsKey(complement)) {
+                return new int[]{intMap.get(complement), i};
+            }
+            intMap.put(nums[i], i);
         }
-        return res;
+
+
+        return null;
     }
+
 }
