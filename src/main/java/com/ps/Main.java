@@ -5,7 +5,7 @@ import java.util.*;
 public class Main {
     private final static Scanner scan = new Scanner(System.in);
 
-    //https://leetcode.com/problems/min-stack/
+    //https://leetcode.com/problems/insert-delete-getrandom-o1/
     public static void main(String[] args) {
         Thread t1 = new Thread(new Main().new RunnableImpl());
         t1.start();
@@ -17,39 +17,36 @@ public class Main {
         }
     }
 
-    class MinStack {
-        Node head;
+    class RandomizedSet {
 
-        public void push(int val) {
-            if (head == null) {
-                head = new Node(val, null, val);
+        Map<Integer, Integer> nodes;
+
+        public RandomizedSet() {
+            nodes = new HashMap<>();
+        }
+
+        public boolean insert(int val) {
+            if (nodes.get(val) == null) {
+                nodes.put(val, val);
+                return true;
             } else {
-                head = new Node(val, head, Math.min(val, head.min));
+                return false;
             }
         }
 
-        public void pop() {
-            head = head.next;
+        public boolean remove(int val) {
+            if (!nodes.containsKey(val)) {
+                return false;
+            } else {
+                nodes.remove(val);
+                return true;
+            }
         }
 
-        public int top() {
-            return head.value;
-        }
-
-        public int getMin() {
-            return head.min;
-        }
-    }
-
-    class Node {
-         int value;
-         Node next;
-         int min;
-
-        public Node(int value, Node next, int min) {
-            this.value = value;
-            this.next = next;
-            this.min = min;
+        public int getRandom() {
+            List<Integer> integers = nodes.values().stream().toList();
+            return integers.get((int) ((Math.random() * (integers.size() - 0)) + 0));
         }
     }
+
 }
