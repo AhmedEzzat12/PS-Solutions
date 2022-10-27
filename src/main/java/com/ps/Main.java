@@ -13,25 +13,22 @@ public class Main {
     private static class RunnableImpl implements Runnable {
 
         public void run() {
-            System.out.println(solution(new int[] { 2, 1, 5, 2, 3, 2 }, 7));
+            System.out.println(solution(new int[] { 2, 1, 5, 1, 3, 2 }, 3));
         }
 
-        public int solution(int[] arr, int S) {
+        public int solution(int[] arr, int k) {
             int windowStart = 0;
+            int maxSum = 0;
             int sum = 0;
-            int smallestLength = Integer.MAX_VALUE;
             for (int windowEnd = 0; windowEnd < arr.length; windowEnd++) {
                 sum += arr[windowEnd];
-
-                if (sum >= S) {
-                    while (sum >= S) {
-                        smallestLength = Math.min(windowEnd - windowStart + 1, smallestLength);
-                        sum -= arr[windowStart];
-                        ++windowStart;
-                    }
+                maxSum = Math.max(maxSum, sum);
+                if (windowEnd - windowStart + 1 == k) {
+                    sum -= arr[windowStart];
+                    ++windowStart;
                 }
             }
-            return smallestLength;
+            return maxSum;
         }
 
     }
