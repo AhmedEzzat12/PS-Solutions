@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch BoyOrGirl",
+            "request": "launch",
+            "mainClass": "com.ps.JuniorTrainingSheetSolutions.BoyOrGirl",
+            "projectName": "PS-Solutions"
+        },
+        {
+            "type": "java",
+            "name": "Launch BuyaShovel",
+            "request": "launch",
+            "mainClass": "com.ps.JuniorTrainingSheetSolutions.BuyaShovel",
+            "projectName": "PS-Solutions"
+        },
+        {
+            "type": "java",
+            "name": "Launch Games",
+            "request": "launch",
+            "mainClass": "com.ps.JuniorTrainingSheetSolutions.Games",
+            "projectName": "PS-Solutions"
+        },
+        {
+            "type": "java",
+            "name": "Launch VanyaAndFence",
+            "request": "launch",
+            "mainClass": "com.ps.JuniorTrainingSheetSolutions.VanyaAndFence",
+            "projectName": "PS-Solutions"
+        },
+        {
+            "type": "java",
+            "name": "Launch word",
+            "request": "launch",
+            "mainClass": "com.ps.JuniorTrainingSheetSolutions.word",
+            "projectName": "PS-Solutions"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "com.ps.Main",
+            "projectName": "PS-Solutions"
+        }
+    ]
+}

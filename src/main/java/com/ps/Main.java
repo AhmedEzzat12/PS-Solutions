@@ -13,22 +13,33 @@ public class Main {
     private static class RunnableImpl implements Runnable {
 
         public void run() {
-            System.out.println(solution(new int[] { 2, 1, 5, 1, 3, 2 }, 3));
+            System.out.println(findLength(new char[] { 'A', 'B', 'C', 'B', 'B', 'C' }));
         }
 
-        public int solution(int[] arr, int k) {
-            int windowStart = 0;
-            int maxSum = 0;
+        /**
+         * @param arr
+         * @return
+         */
+        public static int findLength(char[] arr) {
+            // TODO: Write your code here
             int sum = 0;
+            int windowStart = 0;
+            Map<Character, Integer> m = new HashMap<>();
             for (int windowEnd = 0; windowEnd < arr.length; windowEnd++) {
-                sum += arr[windowEnd];
-                maxSum = Math.max(maxSum, sum);
-                if (windowEnd - windowStart + 1 == k) {
-                    sum -= arr[windowStart];
+                m.put(arr[windowEnd], m.getOrDefault(arr[windowEnd], 0) + 1);
+
+                while (m.size() > 2) {
+                    m.put(arr[windowStart], m.get(arr[windowStart]) - 1);
+                    if (m.get(arr[windowStart]) == 0) {
+                        m.remove(arr[windowStart]);
+                    }
+
                     ++windowStart;
                 }
+                sum = Math.max(sum, windowEnd - windowStart + 1);
             }
-            return maxSum;
+
+            return sum;
         }
 
     }

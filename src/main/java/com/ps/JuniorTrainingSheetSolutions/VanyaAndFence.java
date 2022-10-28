@@ -1,5 +1,6 @@
-import java.util.Scanner;
+package com.ps.JuniorTrainingSheetSolutions;
 
+import java.util.Scanner;
 class VanyaAndFence {
 
     public static void main(String[] args) {
