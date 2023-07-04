@@ -1,8 +1,8 @@
 package com.ps;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static java.lang.Integer.parseInt;
 
 public class Main {
     private final static Scanner scan = new Scanner(System.in);
@@ -14,12 +14,222 @@ public class Main {
 
     private static class RunnableImpl implements Runnable {
         public void run() {
-            int n = 5;
-            List<String> events = List.of("0:start:0", "1:start:5", "1:end:9", "4:start:10", "2:start:13", "2:end:15", "3:start:16", "3:end:18", "4:end:21", "0:end:22");
-            System.out.println(exclusiveTime(n, events));
+            recu("", 0, 0);
         }
 
-        public static List<Integer> exclusiveTime(int n, List<String> events) {
+//        int n = 2;
+//
+//        void recu(String s, int sum, int sum2) {
+//            if (s.length() == 2 * n) {
+//                if (sum == sum2) {
+//                    System.out.println(s);
+//                }
+//                return;
+//            }
+//
+//            recu(s + "0", sum, sum2);
+//            if (s.length() < n) {
+//                recu(s + "1", sum + 1, sum2);
+//            } else {
+//                recu(s + "1", sum, sum2 + 1);
+//            }
+//        }
+//        Stack<Character> stack = new Stack<>();
+//        List<String> res = new ArrayList<>();
+//
+//        public List<String> generateParenthesis(int n) {
+//            backtrack(res, "", 0, 0, n);
+//            return res;
+//        }
+//
+//        private void backtrack(List<String> res, String s, int openN, int closedN, int n) {
+//            if (s.length() == (n * 2)) {
+//                res.add(s);
+//                return;
+//            }
+//
+//            if (openN < n) {
+//                backtrack(res, s + "(", openN + 1, closedN, n);
+//            }
+//
+//            if (closedN < openN) {
+//                backtrack(res, s + ")", openN, closedN + 1, n);
+//            }
+//        }
+        /*public int evalRPN(String[] tokens) {
+            Deque<Integer> stack = new ArrayDeque<>();
+            Set<String> operators = Set.of("+", "/", "*", "-");
+            for (String token : tokens) {
+
+                if (!operators.contains(token)) {
+                    stack.push(parseInt(token));
+                } else {
+                    switch (token) {
+                        case "+" -> {
+                            int first = stack.pop();
+                            int second = stack.pop();
+                            stack.push(first + second);
+                        }
+                        case "-" -> {
+                            int first = stack.pop();
+                            int second = stack.pop();
+                            stack.push(second - first);
+                        }
+                        case "*" -> {
+                            int first = stack.pop();
+                            int second = stack.pop();
+                            stack.push(first * second);
+                        }
+                        case "/" -> {
+                            int first = stack.pop();
+                            int second = stack.pop();
+                            stack.push(second / first);
+                        }
+                        default -> throw new IllegalArgumentException();
+                    }
+                }
+            }
+            return stack.pop();
+        }*/
+
+//        public boolean isMatchingPair(char top, char current) {
+//            return (current == ')' && top == '(') ||
+//                    (current == '}' && top == '{') ||
+//                    (current == ']' && top == '[');
+//        }
+/*
+
+        public boolean isValid(String s) {
+            List<Parentheses> parentheses = List.of(new Parentheses('(', ')'), new Parentheses('{', '}'), new Parentheses('[', ']'));
+            Deque<Parentheses> characters = new ArrayDeque<>();
+            Function<Character, Optional<Parentheses>> isStart = a -> parentheses.stream().filter(parentheses1 -> parentheses1.start == a).findFirst();
+
+            for (char c : s.toCharArray()) {
+                Optional<Parentheses> parentheses1 = isStart.apply(c);
+                if (parentheses1.isPresent()) {
+                    characters.push(parentheses1.get());
+                } else {
+                    if (characters.isEmpty()) return false;
+                    Parentheses peek = characters.pop();
+                    if (peek.end != c) {
+                        return false;
+                    }
+                }
+            }
+            return characters.isEmpty();
+        }
+
+        class Parentheses {
+            char start;
+            char end;
+
+            public Parentheses(char start, char end) {
+                this.start = start;
+                this.end = end;
+            }
+        }
+*/
+
+
+       /* class NestedIterator {
+            Deque<NestedInteger> stack = new ArrayDeque<>();
+
+            // NestedIterator constructor inializes the stack using the
+            // given nestedList list
+            public NestedIterator(List<NestedInteger> nestedList) {
+                // Write your code here
+                for (int i = nestedList.size() - 1; i >= 0; --i) {
+                    stack.push(nestedList.get(i));
+                }
+            }
+
+            // hasNext() will return True if there are still some integers in the
+            // stack (that has nested_list elements) and, otherwise, will return False.
+            public boolean hasNext() {
+                while (!stack.isEmpty()) {
+                    NestedInteger peek = stack.peek();
+                    if (peek.isFile()) {
+                        return true;
+                    }
+                    if (!peek.getList().isEmpty()) {
+                        List<NestedInteger> list = stack.pop().getList();
+                        for (int i = list.size() - 1; i >= 0; --i) {
+                            stack.push(list.get(i));
+                        }
+                    }
+                }
+                return false;
+            }
+
+            // Check if there is still an integer in the stack
+            public int next() {
+                // Write your code here
+                return stack.pop().getFile();
+            }
+
+            // ------ Please don't change the following function ----------
+            // flatten_list function is used for testing porpuses.
+            // Your code will be tested using this function
+            public static List<Integer> flattenList(NestedIterator obj) {
+                List<Integer> result = new ArrayList<Integer>();
+                while (obj.hasNext()) {
+                    result.add(obj.next());
+                }
+                return result;
+            }
+        }
+
+        public class NestedInteger {
+            List<NestedInteger> list;
+            int file;
+
+            // Constructor initializes an empty nested list.
+            public NestedInteger() {
+                this.list = new ArrayList<NestedInteger>();
+            }
+
+            // Constructor initializes a single file.
+            public NestedInteger(int value) {
+                this.file = value;
+            }
+
+            // @return true if this NestedDirectories holds a single file, rather than a nested list.
+            public boolean isFile() {
+                if (this.file != 0)
+                    return true;
+                return false;
+            }
+
+            // @return the single file that this NestedDirectories holds, if it holds a single file
+            // Return null if this NestedDirectories holds a nested list
+            public int getFile() {
+                return this.file;
+            }
+
+            // Set this NestedDirectories to hold a single file.
+            public void setFile(int value) {
+                this.list = null;
+                this.file = value;
+            }
+
+            // Set this NestedDirectories to hold a nested list and adds a nested file to it.
+            public void add(NestedInteger ni) {
+                if (this.file != 0) {
+                    this.list = new ArrayList<NestedInteger>();
+                    this.list.add(new NestedInteger(this.file));
+                    this.file = 0;
+                }
+                this.list.add(ni);
+            }
+
+            // @return the nested list that this NestedDirectories holds, if it holds a nested list
+            // Return null if this NestedDirectories holds a single file
+            public List<NestedInteger> getList() {
+                return this.list;
+            }
+        }*/
+
+/*        public static List<Integer> exclusiveTime(int n, List<String> events) {
             List<Integer> result = new ArrayList<>(Collections.nCopies(n, 0));
             Stack<Event> stack = new Stack<>();
             for (String s : events) {
@@ -62,7 +272,7 @@ public class Main {
             public int getTime() {
                 return this.time;
             }
-        }
+        }*/
 
 /*        public String minRemoveParentheses(String s) {
             Stack<StackElement> parentheses = new Stack<>();
